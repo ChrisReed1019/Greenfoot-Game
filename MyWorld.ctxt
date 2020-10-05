@@ -1,0 +1,18 @@
+#BlueJ class context
+comment0.target=MyWorld
+comment0.text=\r\n\ World\ object.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=
+comment1.target=MyWorld()
+comment2.params=
+comment2.target=void\ act()
+comment3.params=x\ y
+comment3.target=int\ getTile(int,\ int)
+comment4.params=x\ y
+comment4.target=void\ genChunk(int,\ int)
+comment5.params=
+comment5.target=void\ unloadChunk()
+comment6.params=obj\ xCoord\ yCoord
+comment6.target=void\ load(greenfoot.Actor,\ int,\ int)
+comment7.params=conv
+comment7.target=void\ addConveyor(Conveyor)
+numComments=8

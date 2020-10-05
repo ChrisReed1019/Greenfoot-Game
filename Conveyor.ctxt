@@ -1,0 +1,14 @@
+#BlueJ class context
+comment0.target=Conveyor
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Conveyor\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=
+comment1.target=Conveyor()
+comment2.params=xCoord\ yCoord\ dir
+comment2.target=Conveyor(int,\ int,\ java.lang.String)
+comment3.params=
+comment3.target=void\ act()
+comment4.params=dir
+comment4.target=void\ setFacing(java.lang.String)
+comment5.params=
+comment5.target=Conveyor\ getNextConveyor()
+numComments=6

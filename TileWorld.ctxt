@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.target=TileWorld
+comment0.text=\r\n\ A\ 10x10\ grid\ of\ tiles.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=x\ y
+comment1.target=TileWorld(int,\ int)
+comment2.params=
+comment2.target=void\ act()
+comment3.params=arr
+comment3.target=void\ setWeights(int[])
+comment4.params=
+comment4.target=void\ genWorld()
+comment5.params=x\ y\ newTile
+comment5.target=void\ changeTile(int,\ int,\ Tile)
+comment6.params=
+comment6.target=int\ getRoll()
+numComments=7
