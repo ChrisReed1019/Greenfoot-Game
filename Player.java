@@ -13,6 +13,8 @@ public class Player extends Actor
     public int y;
     public int realX;
     public int realY;
+    public int tileWorldX;
+    public int tileWorldY;
     public String key;
     public Boolean isSetting = false;
     public Boolean inMenu = false;
@@ -44,6 +46,7 @@ public class Player extends Actor
                     ((MyWorld)getWorld()).genChunk(MyWorld.chunkWorld.get(MyWorld.loadedChunk).xCoord, MyWorld.chunkWorld.get(MyWorld.loadedChunk).yCoord + 1);
                     y = 9;
                     realY = 475;
+                    tileWorldY++;
                 }
                 setLocation(realX, realY);
             } else if("a".equals(key)) {
@@ -54,6 +57,7 @@ public class Player extends Actor
                     ((MyWorld)getWorld()).genChunk(MyWorld.chunkWorld.get(MyWorld.loadedChunk).xCoord - 1, MyWorld.chunkWorld.get(MyWorld.loadedChunk).yCoord);
                     x = 9;
                     realX = 475;
+                    tileWorldX--;
                 }
                 setLocation(realX, realY);
             } else if("s".equals(key)) {
@@ -64,6 +68,7 @@ public class Player extends Actor
                     ((MyWorld)getWorld()).genChunk(MyWorld.chunkWorld.get(MyWorld.loadedChunk).xCoord, MyWorld.chunkWorld.get(MyWorld.loadedChunk).yCoord - 1);
                     y = 0;
                     realY = 25;
+                    tileWorldY--;
                 }
                 setLocation(realX, realY);
             } else if("d".equals(key)) {
@@ -74,6 +79,7 @@ public class Player extends Actor
                     ((MyWorld)getWorld()).genChunk(MyWorld.chunkWorld.get(MyWorld.loadedChunk).xCoord + 1, MyWorld.chunkWorld.get(MyWorld.loadedChunk).yCoord);
                     x = 0;
                     realX = 25;
+                    tileWorldX++;
                 }
                 setLocation(realX, realY);
             } else if("e".equals(key)) {
@@ -85,12 +91,22 @@ public class Player extends Actor
                     MyWorld.scoreBoard.update();
                 }
             } else if("c".equals(key)) {
-                Conveyor conveyor = new Conveyor(realX, realY, MyWorld.defaultConveyorDirection);
-                ((MyWorld)getWorld()).addConveyor(conveyor);
-                isSetting = true;
+                boolean found = false;
+                for(Conveyor conveyorB : MyWorld.conveyorArray) {
+                    if(conveyorB.x == x && conveyorB.y == y) {
+                       found = true;
+                       break; 
+                    }
+                }
+                if(!found) {
+                    Conveyor conveyor = new Conveyor(realX, realY, MyWorld.defaultConveyorDirection);
+                    ((MyWorld)getWorld()).addConveyor(conveyor);
+                    isSetting = true;
+                }
             } else if("i".equals(key)) {
                 Conveyor currConveyor = null;
                 for(Conveyor conv : MyWorld.conveyorArray) {
+                    System.out.println(MyWorld.conveyorArray.indexOf(conv));
                     if(getX() == conv.getX() && getY() == conv.getY() && MyWorld.loadedChunk == conv.tileWorldId) {
                         currConveyor = conv;
                     }
