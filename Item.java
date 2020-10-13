@@ -16,6 +16,8 @@ public class Item extends Actor
     public Conveyor prevConv;
     public int x;
     public int y;
+    public int tileWorldX;
+    public int tileWorldY;
     public int chunk;
     public GreenfootImage image = new GreenfootImage("item.png");
     public int moveSpeed = 3; // larger = slower
@@ -27,10 +29,25 @@ public class Item extends Actor
         chunk = currChunk;
         setImage(image);
     }
-    public void act() 
+    public void act()
     {
+        checkEdge();
         move();
         checkConveyor();
+        //check if object is in current chunk
+        if(chunk == MyWorld.loadedChunk) {
+            image.setTransparency(255);
+        } else {
+            image.setTransparency(0);
+        }
+
+        if(conv == null) {
+            for(Conveyor conveyor : MyWorld.conveyorArray) {
+                if(getX() == conveyor.x && getY() == conveyor.y && chunk == conveyor.tileWorldId) {
+                    conv = conveyor;
+                }
+            }
+        }
         tick++;
     }
     
@@ -45,12 +62,6 @@ public class Item extends Actor
     
     public void move() {
         if(tick % moveSpeed == 0 && conv != null) {
-            //check if object is in current chunk
-            if(chunk == MyWorld.loadedChunk) {
-                image.setTransparency(255);
-            } else {
-                image.setTransparency(0);
-            }
             if(conv.direction == "North") {
                 y -= 1;
             } else if(conv.direction == "East") {
@@ -65,6 +76,67 @@ public class Item extends Actor
     }
     
     public void checkEdge() {
-        
+        if(getX() == 499) {
+            TileWorld currChunk = MyWorld.chunkWorld.get(chunk);
+            for(TileWorld world : MyWorld.chunkWorld) {
+                if(currChunk.xCoord == world.xCoord + 1 && currChunk.yCoord == world.yCoord) {
+                    x = 1;
+                    chunk = MyWorld.chunkWorld.indexOf(world);
+                    setLocation(x, y);
+                    return;
+                }
+            }
+            ((MyWorld)getWorld()).genItemChunk(currChunk.xCoord + 1, currChunk.yCoord);
+            x = 1;
+            chunk = MyWorld.chunkWorld.size() - 1;
+            setLocation(x, y);
+        }
+        /*
+        if(getX() == 0) {
+            TileWorld currChunk = MyWorld.chunkWorld.get(chunk);
+            for(TileWorld world : MyWorld.chunkWorld) {
+                if(currChunk.xCoord == world.xCoord - 1 && currChunk.yCoord == world.yCoord) {
+                    x = 500;
+                    chunk = MyWorld.chunkWorld.indexOf(world);
+                    setLocation(x, y);
+                    return;
+                }
+            }
+            ((MyWorld)getWorld()).genItemChunk(currChunk.xCoord - 1, currChunk.yCoord);
+            x = 500;
+            chunk = MyWorld.chunkWorld.size() - 1;
+            setLocation(x, y);
+        }
+        if(getY() == 499) {
+            TileWorld currChunk = MyWorld.chunkWorld.get(chunk);
+            for(TileWorld world : MyWorld.chunkWorld) {
+                if(currChunk.xCoord == world.xCoord && currChunk.yCoord == world.yCoord - 1) {
+                    y = 0;
+                    chunk = MyWorld.chunkWorld.indexOf(world);
+                    setLocation(x, y);
+                    return;
+                }
+            }
+            ((MyWorld)getWorld()).genItemChunk(currChunk.xCoord, currChunk.yCoord - 1);
+            y = 0;
+            chunk = MyWorld.chunkWorld.size() - 1;
+            setLocation(x, y);
+        }
+        if(getY() == 0) {
+            TileWorld currChunk = MyWorld.chunkWorld.get(chunk);
+            for(TileWorld world : MyWorld.chunkWorld) {
+                if(currChunk.xCoord == world.xCoord && currChunk.yCoord == world.yCoord + 1) {
+                    y = 500;
+                    chunk = MyWorld.chunkWorld.indexOf(world);
+                    setLocation(x, y);
+                    return;
+                }
+            }
+            ((MyWorld)getWorld()).genItemChunk(currChunk.xCoord, currChunk.yCoord + 1);
+            y = 500;
+            chunk = MyWorld.chunkWorld.size() - 1;
+            setLocation(x, y);
+        }
+        */
     }
 }

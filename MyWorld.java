@@ -12,7 +12,7 @@ public class MyWorld extends World
     public static ArrayList<TileWorld> chunkWorld = new ArrayList<TileWorld>(); //all of the world tiles in an array
     public static ArrayList<Conveyor> conveyorArray = new ArrayList<Conveyor>();
     public static Player player = new Player(); // static object of the player
-    public static int loadedChunk; // the chunk currently loaded in the world
+    public static int loadedChunk = 0; // the chunk currently loaded in the world
     public static Score scoreBoard = new Score("Rocks: 0");
     public static String defaultConveyorDirection = "East";
     public static Label mousePos = new Label("", 16);
@@ -32,6 +32,8 @@ public class MyWorld extends World
         player.realY = 25;
         player.x = 0;
         player.y = 0;
+        player.tileWorldX = 0;
+        player.tileWorldY = 0;
         addObject(player, 25, 25); // add player to world
         addObject(scoreBoard, 250, 14);
         addObject(mousePos, 250, 480);
@@ -76,6 +78,13 @@ public class MyWorld extends World
             addObject(tile, tile.realX, tile.realY);
         }
         loadedChunk = chunkWorld.size() - 1;
+    }
+    // generates chunk but does not load it in
+    public void genItemChunk(int x, int y) {
+        TileWorld currChunk = new TileWorld(x, y);
+        currChunk.genWorld();
+        chunkWorld.add(currChunk);
+        currChunk.id = chunkWorld.size() - 1;
     }
     //unloads all of the current tiles.
     public void unloadChunk() {
