@@ -22,5 +22,8 @@ public class Score extends Actor
         text = "Rocks: " + score;
         GreenfootImage textDisp = new GreenfootImage(text, 20, null, null);
         setImage(textDisp);
+        if (score==10){
+            Greenfoot.stop();
+        }
     }
 }

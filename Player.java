@@ -90,6 +90,13 @@ public class Player extends Actor
                     MyWorld.scoreBoard.score++;
                     MyWorld.scoreBoard.update();
                 }
+                else if (currTile.type == "hut"){
+                    currTile.setImage("grass" + Greenfoot.getRandomNumber(5) + ".png");
+                    currTile.type = "grass";
+                    MyWorld.scoreBoard.score=0;
+                    MyWorld.scoreBoard.update();
+                    
+                }
             } else if("c".equals(key)) {
                 boolean found = false;
                 for(Conveyor conveyorB : MyWorld.conveyorArray) {
@@ -103,8 +110,10 @@ public class Player extends Actor
                     ((MyWorld)getWorld()).addConveyor(conveyor);
                     isSetting = true;
                 }
-            } else if("i".equals(key)) {
+            } else if("i".equals(key) &&  MyWorld.scoreBoard.score>=1) {
                 Conveyor currConveyor = null;
+                MyWorld.scoreBoard.score--;
+                MyWorld.scoreBoard.update();
                 for(Conveyor conv : MyWorld.conveyorArray) {
                     System.out.println(MyWorld.conveyorArray.indexOf(conv));
                     if(getX() == conv.getX() && getY() == conv.getY() && MyWorld.loadedChunk == conv.tileWorldId) {
