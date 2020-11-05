@@ -20,7 +20,7 @@ public class MyWorld extends World
     
     public MyWorld()
     {    
-        super(500, 500, 1);
+        super(500, 550, 1);
         setPaintOrder(Label.class, Score.class, Item.class, Player.class, Conveyor.class, Tile.class);
         int i = 0; //index of first chunk insert
         TileWorld chunk1 = new TileWorld(0, 0); // the first chunk is at 0, 0

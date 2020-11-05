@@ -110,7 +110,7 @@ public class Player extends Actor
                     ((MyWorld)getWorld()).addConveyor(conveyor);
                     isSetting = true;
                 }
-            } */ else if("i".equals(key) &&  MyWorld.scoreBoard.score>=1) {
+            } */ /*else if("i".equals(key) &&  MyWorld.scoreBoard.score>=1) {
                 Conveyor currConveyor = null;
                 MyWorld.scoreBoard.score--;
                 MyWorld.scoreBoard.update();
@@ -122,7 +122,7 @@ public class Player extends Actor
                 }
                 Item item = new Item(currConveyor, MyWorld.loadedChunk, getX(), getY());
                 ((MyWorld)getWorld()).load(item, getX(), getY());
-            }
+            } */
         } else if(isSetting) {
             Conveyor current = MyWorld.conveyorArray.get(MyWorld.conveyorArray.size() - 1);
             if("c".equals(key)) {
