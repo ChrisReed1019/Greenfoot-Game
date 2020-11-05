@@ -90,7 +90,15 @@ public class Player extends Actor
                     MyWorld.scoreBoard.score++;
                     MyWorld.scoreBoard.update();
                 }
-            } else if("c".equals(key)) {
+                else if (currTile.type == "hut"){
+                    currTile.setImage("grass" + Greenfoot.getRandomNumber(5) + ".png");
+                    currTile.type = "grass";
+                    MyWorld.scoreBoard.score=0;
+                    MyWorld.scoreBoard.update();
+                } else if (currTile.type == "obsidian") {
+                    
+                }
+            } /* else if("c".equals(key)) {
                 boolean found = false;
                 for(Conveyor conveyorB : MyWorld.conveyorArray) {
                     if(conveyorB.x == x && conveyorB.y == y) {
@@ -103,8 +111,10 @@ public class Player extends Actor
                     ((MyWorld)getWorld()).addConveyor(conveyor);
                     isSetting = true;
                 }
-            } else if("i".equals(key)) {
+            } */ /*else if("i".equals(key) &&  MyWorld.scoreBoard.score>=1) {
                 Conveyor currConveyor = null;
+                MyWorld.scoreBoard.score--;
+                MyWorld.scoreBoard.update();
                 for(Conveyor conv : MyWorld.conveyorArray) {
                     System.out.println(MyWorld.conveyorArray.indexOf(conv));
                     if(getX() == conv.getX() && getY() == conv.getY() && MyWorld.loadedChunk == conv.tileWorldId) {
@@ -113,7 +123,7 @@ public class Player extends Actor
                 }
                 Item item = new Item(currConveyor, MyWorld.loadedChunk, getX(), getY());
                 ((MyWorld)getWorld()).load(item, getX(), getY());
-            }
+            } */
         } else if(isSetting) {
             Conveyor current = MyWorld.conveyorArray.get(MyWorld.conveyorArray.size() - 1);
             if("c".equals(key)) {

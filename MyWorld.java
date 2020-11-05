@@ -12,6 +12,7 @@ public class MyWorld extends World
     public static ArrayList<TileWorld> chunkWorld = new ArrayList<TileWorld>(); //all of the world tiles in an array
     public static ArrayList<Conveyor> conveyorArray = new ArrayList<Conveyor>();
     public static Player player = new Player(); // static object of the player
+    public static Manbearpig enemy = new Manbearpig();
     public static int loadedChunk = 0; // the chunk currently loaded in the world
     public static Score scoreBoard = new Score("Rocks: 0");
     public static String defaultConveyorDirection = "East";
@@ -20,8 +21,8 @@ public class MyWorld extends World
     
     public MyWorld()
     {    
-        super(500, 500, 1);
-        setPaintOrder(Label.class, Score.class, Item.class, Player.class, Conveyor.class, Tile.class);
+        super(500, 550, 1);
+        setPaintOrder(Label.class, Score.class, Item.class, Manbearpig.class, Player.class, Conveyor.class, Tile.class);
         int i = 0; //index of first chunk insert
         TileWorld chunk1 = new TileWorld(0, 0); // the first chunk is at 0, 0
         chunk1.genWorld(); // generates the chunk's tiles
@@ -35,6 +36,7 @@ public class MyWorld extends World
         player.tileWorldX = 0;
         player.tileWorldY = 0;
         addObject(player, 25, 25); // add player to world
+        addObject(enemy, 475, 475);
         addObject(scoreBoard, 250, 14);
         addObject(mousePos, 250, 480);
         loadedChunk = 0;

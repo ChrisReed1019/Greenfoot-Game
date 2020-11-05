@@ -14,8 +14,8 @@ public class TileWorld
     public int xCoord;
     public int yCoord;
     public int id;
-    public static String[] weightString = {"grass", "rock", "hut"};
-    public static int[] weights = {1700, 40, 20};
+    public static String[] weightString = {"grass", "rock", "hut", "obsidian"};
+    public static int[] weights = {1700, 40, 20, 90};
     public TileWorld(int x, int y) {
         xCoord = x;
         yCoord = y;
@@ -61,8 +61,10 @@ public class TileWorld
             return 0;
         } else if(roll < weights[0] + weights[1]) {
             return 1;
-        } else {
+        } else if(roll < weights[0] + weights[1] + weights[2]){
             return 2;
+        } else {
+            return 3;
         }
     }
 }
