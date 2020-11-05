@@ -97,7 +97,7 @@ public class Player extends Actor
                     MyWorld.scoreBoard.update();
                     
                 }
-            } else if("c".equals(key)) {
+            } /* else if("c".equals(key)) {
                 boolean found = false;
                 for(Conveyor conveyorB : MyWorld.conveyorArray) {
                     if(conveyorB.x == x && conveyorB.y == y) {
@@ -110,7 +110,7 @@ public class Player extends Actor
                     ((MyWorld)getWorld()).addConveyor(conveyor);
                     isSetting = true;
                 }
-            } else if("i".equals(key) &&  MyWorld.scoreBoard.score>=1) {
+            } */ else if("i".equals(key) &&  MyWorld.scoreBoard.score>=1) {
                 Conveyor currConveyor = null;
                 MyWorld.scoreBoard.score--;
                 MyWorld.scoreBoard.update();
