@@ -95,6 +95,7 @@ public class Player extends Actor
                     currTile.type = "grass";
                     MyWorld.scoreBoard.score=0;
                     MyWorld.scoreBoard.update();
+                } else if (currTile.type == "obsidian") {
                     
                 }
             } /* else if("c".equals(key)) {
