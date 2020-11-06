@@ -10,7 +10,6 @@ import java.util.ArrayList;
 public class TileWorld
 {
     public ArrayList<Tile> chunk = new ArrayList<Tile>();
-    public ArrayList<Conveyor> conveyorArray = new ArrayList<Conveyor>();
     public int xCoord;
     public int yCoord;
     public int id;

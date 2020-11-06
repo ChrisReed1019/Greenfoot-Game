@@ -10,7 +10,6 @@ import java.util.List;
 public class MyWorld extends World
 {
     public static ArrayList<TileWorld> chunkWorld = new ArrayList<TileWorld>(); //all of the world tiles in an array
-    public static ArrayList<Conveyor> conveyorArray = new ArrayList<Conveyor>();
     public static Player player = new Player(); // static object of the player
     public static Manbearpig enemy = new Manbearpig();
     public static int loadedChunk = 0; // the chunk currently loaded in the world
@@ -24,7 +23,7 @@ public class MyWorld extends World
     public MyWorld()
     {    
         super(500, 500, 1);
-        setPaintOrder(Label.class, Score.class, Item.class, Manbearpig.class, Player.class, Conveyor.class, Tile.class);
+        setPaintOrder(Label.class, Score.class, Manbearpig.class, Player.class, Tile.class);
         int i = 0; //index of first chunk insert
         TileWorld chunk1 = new TileWorld(0, 0); // the first chunk is at 0, 0
         chunk1.genWorld(); // generates the chunk's tiles
@@ -66,11 +65,6 @@ public class MyWorld extends World
                 for(Tile tile : chunkWorld.get(i).chunk) {
                     addObject(tile, tile.realX, tile.realY);
                 }
-                for(Conveyor conv : conveyorArray) {
-                    if(conv.tileWorldId == i) {
-                        load(conv, conv.realX, conv.realY);
-                    }
-                }
                 loadedChunk = i;
                 return;
             }
@@ -95,17 +89,9 @@ public class MyWorld extends World
     public void unloadChunk() {
         List<Tile> chunk = getObjects(Tile.class);
         removeObjects(chunk);
-        List<Conveyor> conveyors = getObjects(Conveyor.class);
-        removeObjects(conveyors);
     }
     
     public void load(Actor obj, int xCoord, int yCoord) {
         addObject(obj, xCoord, yCoord);
-    }
-
-    public void addConveyor(Conveyor conv) {
-        conveyorArray.add(conv);
-        chunkWorld.get(MyWorld.loadedChunk).conveyorArray.add(conv);
-        load(conv, conv.realX, conv.realY);
     }
 }

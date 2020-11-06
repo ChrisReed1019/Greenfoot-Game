@@ -15,6 +15,4 @@ comment6.params=
 comment6.target=void\ unloadChunk()
 comment7.params=obj\ xCoord\ yCoord
 comment7.target=void\ load(greenfoot.Actor,\ int,\ int)
-comment8.params=conv
-comment8.target=void\ addConveyor(Conveyor)
-numComments=9
+numComments=8

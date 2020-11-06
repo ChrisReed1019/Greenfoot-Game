@@ -101,58 +101,6 @@ public class Player extends Actor
                     MyWorld.scoreBoard.score++;
                     MyWorld.scoreBoard.update();
                 }
-            } /* else if("c".equals(key)) {
-                boolean found = false;
-                for(Conveyor conveyorB : MyWorld.conveyorArray) {
-                    if(conveyorB.x == x && conveyorB.y == y) {
-                       found = true;
-                       break; 
-                    }
-                }
-                if(!found) {
-                    Conveyor conveyor = new Conveyor(realX, realY, MyWorld.defaultConveyorDirection);
-                    ((MyWorld)getWorld()).addConveyor(conveyor);
-                    isSetting = true;
-                }
-            } */ /*else if("i".equals(key) &&  MyWorld.scoreBoard.score>=1) {
-                Conveyor currConveyor = null;
-                MyWorld.scoreBoard.score--;
-                MyWorld.scoreBoard.update();
-                for(Conveyor conv : MyWorld.conveyorArray) {
-                    System.out.println(MyWorld.conveyorArray.indexOf(conv));
-                    if(getX() == conv.getX() && getY() == conv.getY() && MyWorld.loadedChunk == conv.tileWorldId) {
-                        currConveyor = conv;
-                    }
-                }
-                Item item = new Item(currConveyor, MyWorld.loadedChunk, getX(), getY());
-                ((MyWorld)getWorld()).load(item, getX(), getY());
-            } */
-        } else if(isSetting) {
-            Conveyor current = MyWorld.conveyorArray.get(MyWorld.conveyorArray.size() - 1);
-            if("c".equals(key)) {
-                MyWorld.defaultConveyorDirection = current.direction;
-                current.x = x;
-                current.y = y;
-                current.isPlaced = true;
-                isSetting = false;
-                List<Item> items = ((MyWorld)getWorld()).getObjects(Item.class);
-                for(Item item : items) {
-                    if(item.conv == null) {
-                        if(item.getX() == getX() && item.getY() == getY() && item.chunk == MyWorld.loadedChunk) {
-                            item.conv = current;
-                        }
-                    }
-                }
-            } else if("r".equals(key)) {
-                if(current.direction == "North") {
-                    current.setFacing("East");
-                } else if(current.direction == "East") {
-                    current.setFacing("South");
-                } else if(current.direction == "South") {
-                    current.setFacing("West");
-                } else if(current.direction == "West") {
-                    current.setFacing("North");
-                }
             }
         } else if (inMenu) {
             
