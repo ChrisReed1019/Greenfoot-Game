@@ -84,75 +84,44 @@ public class Player extends Actor
                 setLocation(realX, realY);
             } else if("e".equals(key)) {
                 Tile currTile = getCurrentTile();
-                if(currTile.type == "rock") {
+                if(currTile.type == "metamorphic") {
                     currTile.setImage("grass" + Greenfoot.getRandomNumber(5) + ".png");
                     currTile.type = "grass";
-                    MyWorld.scoreBoard.score++;
-                    MyWorld.scoreBoard.update();
-                }
-                else if (currTile.type == "hut"){
+                    if (MyWorld.desiredType == 0){
+                        MyWorld.scoreBoard.score++;
+                        MyWorld.scoreBoard.update();
+                    } else if (MyWorld.desiredType != 0){
+                        MyWorld.scoreBoard.score--;
+                        MyWorld.scoreBoard.update();
+                    }
+                } else if(currTile.type == "sedimentary") {
                     currTile.setImage("grass" + Greenfoot.getRandomNumber(5) + ".png");
                     currTile.type = "grass";
-                    MyWorld.scoreBoard.score=0;
-                    MyWorld.scoreBoard.update();
-                } else if (currTile.type == "obsidian") {
-                    
-                }
-            } /* else if("c".equals(key)) {
-                boolean found = false;
-                for(Conveyor conveyorB : MyWorld.conveyorArray) {
-                    if(conveyorB.x == x && conveyorB.y == y) {
-                       found = true;
-                       break; 
+                    if (MyWorld.desiredType == 1){
+                        MyWorld.scoreBoard.score++;
+                        MyWorld.scoreBoard.update();
+                    } else if (MyWorld.desiredType != 1){
+                        MyWorld.scoreBoard.score--;
+                        MyWorld.scoreBoard.update();
+                    }
+                } else if(currTile.type == "igneous") {
+                    currTile.setImage("grass" + Greenfoot.getRandomNumber(5) + ".png");
+                    currTile.type = "grass";
+                    if (MyWorld.desiredType == 2){
+                        MyWorld.scoreBoard.score++;
+                        MyWorld.scoreBoard.update();
+                    } else if (MyWorld.desiredType != 2){
+                        MyWorld.scoreBoard.score--;
+                        MyWorld.scoreBoard.update();
                     }
                 }
-                if(!found) {
-                    Conveyor conveyor = new Conveyor(realX, realY, MyWorld.defaultConveyorDirection);
-                    ((MyWorld)getWorld()).addConveyor(conveyor);
-                    isSetting = true;
+                if (currTile.type == "poisonous") {
+                    currTile.setImage("grass" + Greenfoot.getRandomNumber(5) + ".png");
+                    currTile.type = "grass";
+                    MyWorld.livesCounter.score -= 2;
+                    MyWorld.livesCounter.update();
                 }
-            } */ /*else if("i".equals(key) &&  MyWorld.scoreBoard.score>=1) {
-                Conveyor currConveyor = null;
-                MyWorld.scoreBoard.score--;
-                MyWorld.scoreBoard.update();
-                for(Conveyor conv : MyWorld.conveyorArray) {
-                    System.out.println(MyWorld.conveyorArray.indexOf(conv));
-                    if(getX() == conv.getX() && getY() == conv.getY() && MyWorld.loadedChunk == conv.tileWorldId) {
-                        currConveyor = conv;
-                    }
-                }
-                Item item = new Item(currConveyor, MyWorld.loadedChunk, getX(), getY());
-                ((MyWorld)getWorld()).load(item, getX(), getY());
-            } */
-        } else if(isSetting) {
-            Conveyor current = MyWorld.conveyorArray.get(MyWorld.conveyorArray.size() - 1);
-            if("c".equals(key)) {
-                MyWorld.defaultConveyorDirection = current.direction;
-                current.x = x;
-                current.y = y;
-                current.isPlaced = true;
-                isSetting = false;
-                List<Item> items = ((MyWorld)getWorld()).getObjects(Item.class);
-                for(Item item : items) {
-                    if(item.conv == null) {
-                        if(item.getX() == getX() && item.getY() == getY() && item.chunk == MyWorld.loadedChunk) {
-                            item.conv = current;
-                        }
-                    }
-                }
-            } else if("r".equals(key)) {
-                if(current.direction == "North") {
-                    current.setFacing("East");
-                } else if(current.direction == "East") {
-                    current.setFacing("South");
-                } else if(current.direction == "South") {
-                    current.setFacing("West");
-                } else if(current.direction == "West") {
-                    current.setFacing("North");
-                }
-            }
-        } else if (inMenu) {
-            
+            } 
         }
     }
     //returns the current tile the player is standing on.

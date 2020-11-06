@@ -10,12 +10,11 @@ import java.util.ArrayList;
 public class TileWorld
 {
     public ArrayList<Tile> chunk = new ArrayList<Tile>();
-    public ArrayList<Conveyor> conveyorArray = new ArrayList<Conveyor>();
     public int xCoord;
     public int yCoord;
     public int id;
-    public static String[] weightString = {"grass", "rock", "hut", "obsidian"};
-    public static int[] weights = {1700, 40, 20, 90};
+    public static String[] weightString = {"grass", "metamorphic", "sedimentary", "igneous", "poisonous"};
+    public static int[] weights = {2500, 40, 20, 90, 150};
     public TileWorld(int x, int y) {
         xCoord = x;
         yCoord = y;
@@ -63,8 +62,10 @@ public class TileWorld
             return 1;
         } else if(roll < weights[0] + weights[1] + weights[2]){
             return 2;
-        } else {
+        } else if(roll < weights[0] + weights[1] + weights[2] + weights[3]){
             return 3;
+        } else {
+            return 4;
         }
     }
 }
