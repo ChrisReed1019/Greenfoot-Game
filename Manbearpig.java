@@ -19,6 +19,7 @@ public class Manbearpig extends Actor
     public int realY = 475;
     public int tileWorldX = 0;
     public int tileWorldY = 0;
+    public int moveSpeed = 200;
     public GreenfootImage image = new GreenfootImage("manbearpig.png");
     public boolean inChunk;
     public Manbearpig() {
@@ -35,14 +36,42 @@ public class Manbearpig extends Actor
         } else {
             image.setTransparency(0);
         }
-        if(tick % 100 == 0) {
-            left();
-        }
         tick++;
+        if(tick % moveSpeed == 0) {
+            move();
+        }
+        if(tick % 500 == 0) {
+            if(moveSpeed > 10) {
+                moveSpeed -= 10;
+            }
+        }
+        if(MyWorld.player.tileWorldX == tileWorldX && MyWorld.player.tileWorldY == tileWorldY && MyWorld.player.x == x && MyWorld.player.y == y) {
+            Greenfoot.stop();
+        }
     }
     
     public void move() {
-        
+        if(!inChunk) { // 0,1
+            if(MyWorld.player.tileWorldX < tileWorldX) {
+                left();
+            } else if(MyWorld.player.tileWorldX > tileWorldX) {
+                right();
+            } else if(MyWorld.player.tileWorldY < tileWorldY) {
+                down();
+            } else if(MyWorld.player.tileWorldY > tileWorldY) {
+                up();
+            }
+        } else {
+            if(MyWorld.player.x < x) {
+                left();
+            } else if(MyWorld.player.x > x) {
+                right();
+            } else if(MyWorld.player.y < y) {
+                up();
+            } else if(MyWorld.player.y > y) {
+                down();
+            }
+        }
     }
 
     public void up() {
