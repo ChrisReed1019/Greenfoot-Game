@@ -20,6 +20,7 @@ public class Manbearpig extends Actor
     public int tileWorldX = 0;
     public int tileWorldY = 0;
     public GreenfootImage image = new GreenfootImage("manbearpig.png");
+    public boolean inChunk;
     public Manbearpig() {
         setImage(image);
         x = 9;
@@ -28,17 +29,22 @@ public class Manbearpig extends Actor
     
     public void act() 
     {
-        if(tileWorldX == MyWorld.player.tileWorldX && tileWorldY == MyWorld.player.tileWorldY) {
+        inChunk = tileWorldX == MyWorld.player.tileWorldX && tileWorldY == MyWorld.player.tileWorldY;
+        if(inChunk) {
             image.setTransparency(255);
         } else {
             image.setTransparency(0);
-            if(tick % 100 == 0) {
-                left();
-            }
+        }
+        if(tick % 100 == 0) {
+            left();
         }
         tick++;
     }
     
+    public void move() {
+        
+    }
+
     public void up() {
         if(y != 0) {
             realY -= 50;
