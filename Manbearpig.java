@@ -46,6 +46,10 @@ public class Manbearpig extends Actor
             }
         }
         if(MyWorld.player.tileWorldX == tileWorldX && MyWorld.player.tileWorldY == tileWorldY && MyWorld.player.x == x && MyWorld.player.y == y) {
+            MyWorld.livesCounter.score = 0;
+            MyWorld.livesCounter.update();
+            MyWorld.reset();
+            new GreenfootSound("Loser.wav").play();
             Greenfoot.stop();
         }
     }

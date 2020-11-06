@@ -87,23 +87,41 @@ public class Player extends Actor
                 if(currTile.type == "metamorphic") {
                     currTile.setImage("grass" + Greenfoot.getRandomNumber(5) + ".png");
                     currTile.type = "grass";
-                    MyWorld.scoreBoard.score++;
-                    MyWorld.scoreBoard.update();
-                }
-                else if (currTile.type == "sedimentary"){
+                    if (MyWorld.desiredType == 0){
+                        MyWorld.scoreBoard.score++;
+                        MyWorld.scoreBoard.update();
+                    } else if (MyWorld.desiredType != 0){
+                        MyWorld.scoreBoard.score--;
+                        MyWorld.scoreBoard.update();
+                    }
+                } else if(currTile.type == "sedimentary") {
                     currTile.setImage("grass" + Greenfoot.getRandomNumber(5) + ".png");
                     currTile.type = "grass";
-                    MyWorld.scoreBoard.score++;
-                    MyWorld.scoreBoard.update();
-                } else if (currTile.type == "igneous") {
+                    if (MyWorld.desiredType == 1){
+                        MyWorld.scoreBoard.score++;
+                        MyWorld.scoreBoard.update();
+                    } else if (MyWorld.desiredType != 1){
+                        MyWorld.scoreBoard.score--;
+                        MyWorld.scoreBoard.update();
+                    }
+                } else if(currTile.type == "igneous") {
                     currTile.setImage("grass" + Greenfoot.getRandomNumber(5) + ".png");
                     currTile.type = "grass";
-                    MyWorld.scoreBoard.score++;
-                    MyWorld.scoreBoard.update();
+                    if (MyWorld.desiredType == 2){
+                        MyWorld.scoreBoard.score++;
+                        MyWorld.scoreBoard.update();
+                    } else if (MyWorld.desiredType != 2){
+                        MyWorld.scoreBoard.score--;
+                        MyWorld.scoreBoard.update();
+                    }
                 }
-            }
-        } else if (inMenu) {
-            
+                if (currTile.type == "poisonous") {
+                    currTile.setImage("grass" + Greenfoot.getRandomNumber(5) + ".png");
+                    currTile.type = "grass";
+                    MyWorld.livesCounter.score -= 2;
+                    MyWorld.livesCounter.update();
+                }
+            } 
         }
     }
     //returns the current tile the player is standing on.

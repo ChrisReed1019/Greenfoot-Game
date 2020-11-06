@@ -13,17 +13,19 @@ public class MyWorld extends World
     public static Player player = new Player(); // static object of the player
     public static Manbearpig enemy = new Manbearpig();
     public static int loadedChunk = 0; // the chunk currently loaded in the world
-    public static Score scoreBoard = new Score("Rocks: 0");
+    public static Score scoreBoard = new Score("Rocks: ", 0);
     public static String defaultConveyorDirection = "East";
     public static Label mousePos = new Label("", 16);
     public static boolean showMousePos = true;
     public static int lives = 3;
-    public static Score livesCounter = new Score("Lives: " + lives);
-
+    public static Score livesCounter = new Score("Lives: ", lives);
+    public static int desiredType = Greenfoot.getRandomNumber(3);
+    public static Label rockType = new Label("", 16);
+    
     public MyWorld()
     {    
         super(500, 500, 1);
-        setPaintOrder(Label.class, Score.class, Manbearpig.class, Player.class, Tile.class);
+        setPaintOrder(Label.class, Score.class, Manbearpig.class, FirstAidKit.class, Player.class, Tile.class);
         int i = 0; //index of first chunk insert
         TileWorld chunk1 = new TileWorld(0, 0); // the first chunk is at 0, 0
         chunk1.genWorld(); // generates the chunk's tiles
@@ -36,18 +38,34 @@ public class MyWorld extends World
         player.y = 0;
         player.tileWorldX = 0;
         player.tileWorldY = 0;
+        if(desiredType == 0) {
+            rockType.setValue("Collect metamorphic rocks.");
+        } else if(desiredType == 1) {
+            rockType.setValue("Collect sedimentary rocks.");
+        } else {
+            rockType.setValue("Collect igneous rocks.");
+        }
+        addObject(rockType, 250, 44);
         addObject(player, 25, 25); // add player to world
         addObject(enemy, 475, 475);
         addObject(scoreBoard, 250, 14);
         addObject(mousePos, 250, 480);
         addObject(livesCounter, 250 , 30);
         loadedChunk = 0;
+        reset();
     }
 
     public void act() {
+        livesCounter.update();
+        scoreBoard.update();
         if(Greenfoot.getMouseInfo() != null && showMousePos) {
             MouseInfo mouse = Greenfoot.getMouseInfo();
             mousePos.setValue("(" + mouse.getX() + ", " + mouse.getY() + ")");
+        }
+        if(Greenfoot.getRandomNumber(30000) <= 1) {
+            int x = Greenfoot.getRandomNumber(10);
+            int y = Greenfoot.getRandomNumber(10);
+            addObject(new FirstAidKit(x, y, player.tileWorldX, player.tileWorldY), ((x + 1) * 50) - 25, ((y + 1) * 50) - 25);
         }
     }
     // gets tile from arraylist
@@ -56,6 +74,19 @@ public class MyWorld extends World
     }
     // draws an existing chunk to the screen if it exists
     // if the chunk doesn't exist, it creates a new chunk.
+    public static void reset() {
+        lives = 3;
+        livesCounter.score = 3;
+        scoreBoard.score = 0;
+        desiredType = Greenfoot.getRandomNumber(3);
+        if(desiredType == 0) {
+            rockType.setValue("Collect metamorphic rocks.");
+        } else if(desiredType == 1) {
+            rockType.setValue("Collect sedimentary rocks.");
+        } else {
+            rockType.setValue("Collect igneous rocks.");
+        }
+    }
     public void genChunk(int x, int y) {
         this.unloadChunk();
         TileWorld currChunk;
