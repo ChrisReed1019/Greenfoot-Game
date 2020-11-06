@@ -18,10 +18,12 @@ public class MyWorld extends World
     public static String defaultConveyorDirection = "East";
     public static Label mousePos = new Label("", 16);
     public static boolean showMousePos = true;
-    
+    public static int lives = 3;
+    public static Score livesCounter = new Score("Lives: " + lives);
+
     public MyWorld()
     {    
-        super(500, 550, 1);
+        super(500, 500, 1);
         setPaintOrder(Label.class, Score.class, Item.class, Manbearpig.class, Player.class, Conveyor.class, Tile.class);
         int i = 0; //index of first chunk insert
         TileWorld chunk1 = new TileWorld(0, 0); // the first chunk is at 0, 0
@@ -39,6 +41,7 @@ public class MyWorld extends World
         addObject(enemy, 475, 475);
         addObject(scoreBoard, 250, 14);
         addObject(mousePos, 250, 480);
+        addObject(livesCounter, 250 , 30);
         loadedChunk = 0;
     }
 
