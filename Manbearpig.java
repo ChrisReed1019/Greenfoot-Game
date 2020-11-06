@@ -19,18 +19,24 @@ public class Manbearpig extends Actor
     public int realY = 475;
     public int tileWorldX = 0;
     public int tileWorldY = 0;
+    public GreenfootImage image = new GreenfootImage("manbearpig.png");
     public Manbearpig() {
-        setImage(new GreenfootImage("manbearpig.png"));
+        setImage(image);
         x = 9;
         y = 9;
     }
     
     public void act() 
     {
-        tick++;
-        if(tick % 100 == 0) {
-            left();
+        if(tileWorldX == MyWorld.player.tileWorldX && tileWorldY == MyWorld.player.tileWorldY) {
+            image.setTransparency(255);
+        } else {
+            image.setTransparency(0);
+            if(tick % 100 == 0) {
+                left();
+            }
         }
+        tick++;
     }
     
     public void up() {
