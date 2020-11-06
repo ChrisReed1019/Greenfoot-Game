@@ -14,7 +14,7 @@ public class TileWorld
     public int xCoord;
     public int yCoord;
     public int id;
-    public static String[] weightString = {"grass", "rock", "hut", "obsidian"};
+    public static String[] weightString = {"grass", "metamorphic", "sedimentary", "igneous"};
     public static int[] weights = {1700, 40, 20, 90};
     public TileWorld(int x, int y) {
         xCoord = x;

@@ -84,19 +84,22 @@ public class Player extends Actor
                 setLocation(realX, realY);
             } else if("e".equals(key)) {
                 Tile currTile = getCurrentTile();
-                if(currTile.type == "rock") {
+                if(currTile.type == "metamorphic") {
                     currTile.setImage("grass" + Greenfoot.getRandomNumber(5) + ".png");
                     currTile.type = "grass";
                     MyWorld.scoreBoard.score++;
                     MyWorld.scoreBoard.update();
                 }
-                else if (currTile.type == "hut"){
+                else if (currTile.type == "sedimentary"){
                     currTile.setImage("grass" + Greenfoot.getRandomNumber(5) + ".png");
                     currTile.type = "grass";
-                    MyWorld.scoreBoard.score=0;
+                    MyWorld.scoreBoard.score++;
                     MyWorld.scoreBoard.update();
-                } else if (currTile.type == "obsidian") {
-                    
+                } else if (currTile.type == "igneous") {
+                    currTile.setImage("grass" + Greenfoot.getRandomNumber(5) + ".png");
+                    currTile.type = "grass";
+                    MyWorld.scoreBoard.score++;
+                    MyWorld.scoreBoard.update();
                 }
             } /* else if("c".equals(key)) {
                 boolean found = false;
