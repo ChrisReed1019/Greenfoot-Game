@@ -21,11 +21,16 @@ public class MyWorld extends World
     public static Score livesCounter = new Score("Lives: ", lives);
     public static int desiredType = Greenfoot.getRandomNumber(3);
     public static Label rockType = new Label("", 16);
-    
+    public static int ticks = 0;
+    public Label manbearpigLocation = new Label("Manbearpig chunk: \nManbearpig Location: ", 16);
+    public Label playerLocation = new Label("Player: ", 16);
+    public QuestionMark question = new QuestionMark();
+    public static PlayerHelp help = new PlayerHelp();
+
     public MyWorld()
     {    
-        super(500, 500, 1);
-        setPaintOrder(Label.class, Score.class, Manbearpig.class, FirstAidKit.class, Player.class, Tile.class);
+        super(500, 550, 1);
+        setPaintOrder(PlayerHelp.class, Label.class, Score.class, Manbearpig.class, FirstAidKit.class, Player.class, Tile.class);
         int i = 0; //index of first chunk insert
         TileWorld chunk1 = new TileWorld(0, 0); // the first chunk is at 0, 0
         chunk1.genWorld(); // generates the chunk's tiles
@@ -38,35 +43,44 @@ public class MyWorld extends World
         player.y = 0;
         player.tileWorldX = 0;
         player.tileWorldY = 0;
-        if(desiredType == 0) {
-            rockType.setValue("Collect metamorphic rocks.");
-        } else if(desiredType == 1) {
-            rockType.setValue("Collect sedimentary rocks.");
-        } else {
-            rockType.setValue("Collect igneous rocks.");
-        }
+        rockType.setFillColor(Color.BLACK);
+        rockType.setLineColor(null);
+        manbearpigLocation.setFillColor(Color.BLACK);
+        manbearpigLocation.setLineColor(null);
+        playerLocation.setFillColor(Color.BLACK);
+        playerLocation.setLineColor(null);
         addObject(rockType, 250, 44);
         addObject(player, 25, 25); // add player to world
         addObject(enemy, 475, 475);
         addObject(scoreBoard, 250, 14);
         addObject(mousePos, 250, 480);
         addObject(livesCounter, 250 , 30);
+        addObject(question, 475, 525);
+        addObject(help, 200, 200);
+        manbearpigLocation.setValue("Manbearpig chunk: " + "(" + enemy.tileWorldX  + ", " + enemy.tileWorldY + ")" + "\nManbearpig Location: " + "(" + enemy.x  + ", " + (9 - enemy.y) + ")");
+        playerLocation.setValue("Player chunk: " + "(" + player.tileWorldX  + ", " + player.tileWorldY + ")" + "\nPlayer Location: " + "(" + player.x  + ", " + (9 - enemy.y) + ")");
+        addObject(manbearpigLocation, 80, 525);
+        addObject(playerLocation, 300, 525);
         loadedChunk = 0;
         reset();
+        prepare();
     }
 
     public void act() {
         livesCounter.update();
         scoreBoard.update();
+        ticks++;
         if(Greenfoot.getMouseInfo() != null && showMousePos) {
             MouseInfo mouse = Greenfoot.getMouseInfo();
             mousePos.setValue("(" + mouse.getX() + ", " + mouse.getY() + ")");
         }
-        if(Greenfoot.getRandomNumber(30000) <= 1) {
+        if(Greenfoot.getRandomNumber(25000) <= 1 && !player.stopped) {
             int x = Greenfoot.getRandomNumber(10);
             int y = Greenfoot.getRandomNumber(10);
             addObject(new FirstAidKit(x, y, player.tileWorldX, player.tileWorldY), ((x + 1) * 50) - 25, ((y + 1) * 50) - 25);
         }
+        playerLocation.setValue("Player chunk: " + "(" + player.tileWorldX  + ", " + player.tileWorldY + ")" + "\nPlayer Location: " + "(" + player.x  + ", " + (9 - player.y) + ")");
+        manbearpigLocation.setValue("Manbearpig chunk: " + "(" + enemy.tileWorldX  + ", " + enemy.tileWorldY + ")" + "\nManbearpig Location: " + "(" + enemy.x  + ", " + (9 - enemy.y) + ")");
     }
     // gets tile from arraylist
     public static int getTile(int x, int y) {
@@ -87,6 +101,7 @@ public class MyWorld extends World
             rockType.setValue("Collect igneous rocks.");
         }
     }
+
     public void genChunk(int x, int y) {
         this.unloadChunk();
         TileWorld currChunk;
@@ -121,8 +136,16 @@ public class MyWorld extends World
         List<Tile> chunk = getObjects(Tile.class);
         removeObjects(chunk);
     }
-    
+
     public void load(Actor obj, int xCoord, int yCoord) {
         addObject(obj, xCoord, yCoord);
+    }
+
+    /**
+     * Prepare the world for the start of the program.
+     * That is: create the initial objects and add them to the world.
+     */
+    private void prepare()
+    {
     }
 }

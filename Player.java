@@ -18,6 +18,7 @@ public class Player extends Actor
     public String key;
     public Boolean isSetting = false;
     public Boolean inMenu = false;
+    public Boolean stopped = false;
     /**
      * Act - do whatever the Player wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
@@ -26,7 +27,7 @@ public class Player extends Actor
     {
         // attempted input lag optimization
         key = Greenfoot.getKey();
-        if(key != null) {
+        if(key != null && !stopped) {
             checkMove();
         }
     }    
@@ -89,6 +90,7 @@ public class Player extends Actor
                     currTile.type = "grass";
                     if (MyWorld.desiredType == 0){
                         MyWorld.scoreBoard.score++;
+                        Manbearpig.moveSpeed = (int)((double)Manbearpig.moveSpeed * 0.90);
                         MyWorld.scoreBoard.update();
                     } else if (MyWorld.desiredType != 0){
                         MyWorld.scoreBoard.score--;
@@ -99,6 +101,7 @@ public class Player extends Actor
                     currTile.type = "grass";
                     if (MyWorld.desiredType == 1){
                         MyWorld.scoreBoard.score++;
+                        Manbearpig.moveSpeed = (int)((double)Manbearpig.moveSpeed * 0.90);
                         MyWorld.scoreBoard.update();
                     } else if (MyWorld.desiredType != 1){
                         MyWorld.scoreBoard.score--;
@@ -109,6 +112,7 @@ public class Player extends Actor
                     currTile.type = "grass";
                     if (MyWorld.desiredType == 2){
                         MyWorld.scoreBoard.score++;
+                        Manbearpig.moveSpeed = (int)((double)Manbearpig.moveSpeed * 0.90);
                         MyWorld.scoreBoard.update();
                     } else if (MyWorld.desiredType != 2){
                         MyWorld.scoreBoard.score--;
@@ -118,6 +122,7 @@ public class Player extends Actor
                 if (currTile.type == "poisonous") {
                     currTile.setImage("grass" + Greenfoot.getRandomNumber(5) + ".png");
                     currTile.type = "grass";
+                    Manbearpig.moveSpeed = 100;
                     MyWorld.livesCounter.score -= 2;
                     MyWorld.livesCounter.update();
                 }

@@ -19,9 +19,11 @@ public class Manbearpig extends Actor
     public int realY = 475;
     public int tileWorldX = 0;
     public int tileWorldY = 0;
-    public int moveSpeed = 200;
+    public static int moveSpeed = 200;
     public GreenfootImage image = new GreenfootImage("manbearpig.png");
     public boolean inChunk;
+    public int catchedTick;
+    public boolean stopped = false;
     public Manbearpig() {
         setImage(image);
         x = 9;
@@ -36,21 +38,38 @@ public class Manbearpig extends Actor
         } else {
             image.setTransparency(0);
         }
+        if(moveSpeed < 12) {
+            moveSpeed = 12;
+        }
         tick++;
-        if(tick % moveSpeed == 0) {
-            move();
-        }
-        if(tick % 500 == 0) {
-            if(moveSpeed > 10) {
-                moveSpeed -= 10;
+        if(!stopped) {
+            if(tick % moveSpeed == 0) {
+                move();
             }
-        }
-        if(MyWorld.player.tileWorldX == tileWorldX && MyWorld.player.tileWorldY == tileWorldY && MyWorld.player.x == x && MyWorld.player.y == y) {
-            MyWorld.livesCounter.score = 0;
-            MyWorld.livesCounter.update();
-            MyWorld.reset();
-            new GreenfootSound("Loser.wav").play();
-            Greenfoot.stop();
+            if(tick % 1500 == 0) {
+                if(moveSpeed > 10) {
+                    moveSpeed -= 10;
+                }
+            }
+            if(MyWorld.player.tileWorldX == tileWorldX && MyWorld.player.tileWorldY == tileWorldY && MyWorld.player.x == x && MyWorld.player.y == y) {
+                MyWorld.livesCounter.score -= 3;
+                if(MyWorld.livesCounter.score <= 0) {
+                    MyWorld.livesCounter.score = 0;
+                    MyWorld.reset();
+                    new GreenfootSound("Loser.wav").play();
+                    MyWorld.livesCounter.update();
+                    Greenfoot.stop();
+                } else {
+                    catchedTick = tick;
+                    moveSpeed = 100;
+                    stopped = true;
+                    MyWorld.livesCounter.update();
+                }
+            }
+        } else {
+            if(tick - catchedTick >= 5000) {
+                stopped = false;
+            }
         }
     }
     
