@@ -27,7 +27,7 @@ public class MyWorld extends World
     public QuestionMark question = new QuestionMark();
     public static PlayerHelp help = new PlayerHelp();
 
-    public MyWorld()
+    public MyWorld(String playerImage)
     {    
         super(500, 550, 1);
         setPaintOrder(PlayerHelp.class, Label.class, Score.class, Manbearpig.class, FirstAidKit.class, Player.class, Tile.class);
@@ -50,6 +50,7 @@ public class MyWorld extends World
         playerLocation.setFillColor(Color.BLACK);
         playerLocation.setLineColor(null);
         addObject(rockType, 250, 44);
+        player.setImage(new GreenfootImage(playerImage));
         addObject(player, 25, 25); // add player to world
         addObject(enemy, 475, 475);
         addObject(scoreBoard, 250, 14);
