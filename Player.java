@@ -124,7 +124,18 @@ public class Player extends Actor
                     currTile.type = "grass";
                     Manbearpig.moveSpeed = 100;
                     MyWorld.livesCounter.score -= 2;
+                    MyWorld.scoreBoard.score /= 2;
                     MyWorld.livesCounter.update();
+                    MyWorld.scoreBoard.update();
+                }
+                if(currTile.type == "teleporter") {
+                    x = 0;
+                    y = 0;
+                    tileWorldX = 0;
+                    tileWorldY = 0;
+                    realX = 25;
+                    realY = 25;
+                    setLocation(25, 25);
                 }
             } 
         }

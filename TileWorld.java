@@ -13,8 +13,8 @@ public class TileWorld
     public int xCoord;
     public int yCoord;
     public int id;
-    public static String[] weightString = {"grass", "metamorphic", "sedimentary", "igneous", "poisonous"};
-    public static int[] weights = {3700, 50, 50, 50, 10};
+    public static String[] weightString = {"grass", "metamorphic", "sedimentary", "igneous", "poisonous", "teleporter"};
+    public static int[] weights = {4000, Greenfoot.getRandomNumber(50) + 21, Greenfoot.getRandomNumber(50) + 21, Greenfoot.getRandomNumber(50) + 21, Greenfoot.getRandomNumber(5) + 6, Greenfoot.getRandomNumber(3) + 1};
     public TileWorld(int x, int y) {
         xCoord = x;
         yCoord = y;
@@ -51,6 +51,7 @@ public class TileWorld
         chunk.set(y + x * 10, newTile);
     }
     public int getRoll() {
+        /*
         int total = 0;
         for(int i : weights) {
             total += i;
@@ -67,5 +68,31 @@ public class TileWorld
         } else {
             return 4;
         }
+        */
+        int total = 0;
+        ArrayList<Integer> minMax = new ArrayList<Integer>();
+        minMax.add(0);
+        for(int i : weights) {
+            total += i;
+        }
+        for (int i = 1, j = 0; j < weights.length; i++) {
+            if (i % 2 == 1)
+            {
+                minMax.add(weights[j] + minMax.get(i - 1) - 1);
+                j++;
+            } else {
+                minMax.add(minMax.get(i - 1) + 1);
+            }
+        }
+        int roll = Greenfoot.getRandomNumber(minMax.get(minMax.size() - 1) + 2);
+        for(int i = 0; i < minMax.size(); i++) {
+            if(i == minMax.size() - 1) {
+                return weights.length - 1;
+            }
+            if(roll >= minMax.get(i) && roll <= minMax.get(i + 1)) {
+                return i/2;
+            }
+        }
+        return -1;
     }
 }
