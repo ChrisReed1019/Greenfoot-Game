@@ -23,10 +23,15 @@ public class Score extends Actor
     }
     public void update() {
         text =  displayText + score;
+        if(displayText == "Rocks: ") {
+            text += "/20";
+        }
         GreenfootImage textDisp = new GreenfootImage(text, 20, null, null);
         setImage(textDisp);
         if (score == 20 && displayText == "Rocks: ") {
             new GreenfootSound("Winner.wav").play();
+            MyWorld.reset();
+            Greenfoot.setWorld(new MainMenu());
             Greenfoot.stop();
         }
         if (score < 0) {
@@ -35,7 +40,7 @@ public class Score extends Actor
         if(score <= 0 && displayText == "Lives: ") {
             MyWorld.reset();
             new GreenfootSound("Loser.wav").play();
-            Greenfoot.stop();
+            Greenfoot.setWorld(new MainMenu());
         }
     }
 }

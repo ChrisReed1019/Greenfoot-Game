@@ -58,7 +58,7 @@ public class Manbearpig extends Actor
                     MyWorld.reset();
                     new GreenfootSound("Loser.wav").play();
                     MyWorld.livesCounter.update();
-                    Greenfoot.stop();
+                    Greenfoot.setWorld(new MainMenu());
                 } else {
                     catchedTick = tick;
                     moveSpeed = 100;
